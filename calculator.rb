@@ -7,7 +7,7 @@ def valid_number?(num)
 end
 
 def operation_to_message(message)
-  case message
+  message = case message
   when '1'
     "Adding"
   when '2'
@@ -17,6 +17,7 @@ def operation_to_message(message)
   when '4'
     "Dividing"
   end
+  message
 end
 
 prompt('Welcome to Calculator! Enter your name:')
