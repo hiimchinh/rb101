@@ -1,0 +1,1 @@
+This is a repo contain practices of ruby 101 class from Launch School Core program.
