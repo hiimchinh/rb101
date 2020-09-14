@@ -6,7 +6,20 @@ def valid_number?(num)
   num.to_i() != 0
 end
 
-prompt('Welcome to Calculator!')
+prompt('Welcome to Calculator! Enter your name:')
+name = ''
+loop do
+  name = Kernel.gets().chomp()
+  if name.empty?()
+    prompt("Make sure your name is valid.")
+  else
+    break
+  end
+end
+
+
+prompt("Hi #{name}!")
+
 number1 = ''
 
 loop do
