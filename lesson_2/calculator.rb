@@ -3,20 +3,22 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  true if Float(num) rescue false
+  true if Float(num)
+rescue ArgumentError
+  false
 end
 
 def operation_to_message(message)
   message = case message
-  when '1'
-    "Adding"
-  when '2'
-    "Substracting"
-  when '3'
-    "Multiplying"
-  when '4'
-    "Dividing"
-  end
+            when '1'
+              "Adding"
+            when '2'
+              "Substracting"
+            when '3'
+              "Multiplying"
+            when '4'
+              "Dividing"
+            end
   message
 end
 
@@ -30,7 +32,6 @@ loop do
     break
   end
 end
-
 
 prompt "Hi #{name}!"
 
@@ -46,9 +47,7 @@ loop do
       prompt "Hmm... that doesn't look like a valid number"
     end
   end
-  
   number2 = ''
-  
   loop do
     prompt "What's the second number?"
     number2 = Kernel.gets.chomp
@@ -75,9 +74,8 @@ What operation would you like to perform?
       prompt "Must choose 1, 2, 3 or 4."
     end
   end
-prompt "#{operation_to_message(operator)} the two numbers..."
-
-  result = case operator
+  prompt "#{operation_to_message(operator)} the two numbers..."
+  result =  case operator
             when '1'
               number1.to_i + number2.to_i
             when '2'
@@ -92,4 +90,3 @@ prompt "#{operation_to_message(operator)} the two numbers..."
   answer = Kernel.gets.chomp.downcase
   break unless answer == 'y'
 end
-
