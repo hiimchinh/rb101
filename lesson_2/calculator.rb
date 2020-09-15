@@ -95,7 +95,7 @@ What operation would you like to perform?
             when '4'
               number1.to_f / number2.to_f
             end
-  prompt "The result is #{result}!"
+  prompt "The result is #{result.round(2)}!"
   prompt "Do you want to calculate again? (y to do it again)"
   answer = Kernel.gets.chomp.downcase
   break unless answer == 'y'
