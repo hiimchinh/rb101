@@ -1,7 +1,7 @@
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
 def prompt(msg)
-  Kernel.puts("=> " + msg)
+  puts("=> " + msg)
 end
 
 def integer?(input)
@@ -37,7 +37,7 @@ end
 prompt MESSAGES['en']['welcome']
 name = ''
 loop do
-  name = Kernel.gets.chomp
+  name = gets.chomp
   if name.empty?
     prompt MESSAGES['en']['empty_name']
   else
@@ -52,7 +52,7 @@ number1 = ''
 loop do
   loop do
     prompt MESSAGES['en']['first_number_prompt']
-    number1 = Kernel.gets.chomp
+    number1 = gets.chomp
     if valid_number? number1
       break
     else
@@ -62,7 +62,7 @@ loop do
   number2 = ''
   loop do
     prompt MESSAGES['en']['second_number_prompt']
-    number2 = Kernel.gets.chomp
+    number2 = gets.chomp
     if valid_number? number2
       break
     else
@@ -73,7 +73,7 @@ loop do
   prompt MESSAGES['en']['operator_prompt']
   operator = ''
   loop do
-    operator = Kernel.gets.chomp
+    operator = gets.chomp
     if %w(1 2 3 4).include? operator
       break
     else
@@ -93,6 +93,6 @@ loop do
             end
   prompt "#{MESSAGES['en']['result']} #{result.round(2)}!"
   prompt MESSAGES['en']['again_prompt']
-  answer = Kernel.gets.chomp.downcase
+  answer = gets.chomp.downcase
   break unless answer == 'y'
 end
