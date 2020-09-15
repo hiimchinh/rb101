@@ -1,0 +1,19 @@
+en: 
+  adding: "Adding"
+  subtracting: "Subtracting"
+  multiplying: "Multiplying"
+  dividing: "Dividing"
+  welcome: "Welcome to Calculator! Enter your name:"
+  empty_name: "Make sure your name is valid."
+  first_number_prompt: "What's the first number?"
+  second_number_prompt: "What's the second number?"
+  invalid_number: "Hmm... that doesn't look like a valid number"
+  validate_operator: "Must choose 1 2 3 or 4."
+  again_prompt: "Do you want to calculate again? (y to do it again)"
+  result: "The result is"
+  calculating: "the two numbers..."
+  operator_prompt: "What operation would you like to perform?\n
+  1) add\n
+  2) subtract\n
+  3) multiply\n
+  4) divide"
