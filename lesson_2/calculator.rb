@@ -2,20 +2,20 @@ def prompt(message)
   Kernel.puts("=> " + message)
 end
 
-def is_integer?(input)
+def integer?(input)
   Integer(input)
 rescue ArgumentError
   false
 end
 
-def is_float?(input)
+def float?(input)
   Float(input)
-rescue
+rescue ArgumentError
   false
 end
 
-def is_valid_number?(input)
-  is_integer?(input) || is_float?(input)
+def valid_number?(input)
+  integer?(input) || float?(input)
 end
 
 def operation_to_message(message)
