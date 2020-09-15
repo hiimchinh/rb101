@@ -20,67 +20,79 @@ def valid_number?(input)
   integer?(input) || float?(input)
 end
 
+
 def operation_to_message(operation)
   operation = case operation
             when '1'
-              MESSAGES['en']['adding']
+              MESSAGES[LANGUAGE]['adding']
             when '2'
-              MESSAGES['en']['subtracting']
+              MESSAGES[LANGUAGE]['subtracting']
             when '3'
-              MESSAGES['en']['multiplying']
+              MESSAGES[LANGUAGE]['multiplying']
             when '4'
-              MESSAGES['en']['dividing']
+              MESSAGES[LANGUAGE]['dividing']
             end
   operation
 end
 
-prompt MESSAGES['en']['welcome']
+loop do
+  prompt MESSAGES['choose_language']
+  LANGUAGE = gets.chomp.downcase
+  allowed_languages = ['vi', 'en']
+  if allowed_languages.include?(LANGUAGE)
+    break
+  else
+    prompt MESSAGES['invalid_language']
+  end
+end
+
+prompt MESSAGES[LANGUAGE]['welcome']
 name = ''
 loop do
   name = gets.chomp
   if name.empty?
-    prompt MESSAGES['en']['empty_name']
+    prompt MESSAGES[LANGUAGE]['empty_name']
   else
     break
   end
 end
 
-prompt "Hi #{name}!"
+prompt "#{MESSAGES[LANGUAGE]['hi']} #{name}!"
 
 number1 = ''
 
 loop do
   loop do
-    prompt MESSAGES['en']['first_number_prompt']
+    prompt MESSAGES[LANGUAGE]['first_number_prompt']
     number1 = gets.chomp
     if valid_number? number1
       break
     else
-      prompt MESSAGES['en']['invalid_number']
+      prompt MESSAGES[LANGUAGE]['invalid_number']
     end
   end
   number2 = ''
   loop do
-    prompt MESSAGES['en']['second_number_prompt']
+    prompt MESSAGES[LANGUAGE]['second_number_prompt']
     number2 = gets.chomp
     if valid_number? number2
       break
     else
-      prompt MESSAGES['en']['invalid_number']
+      prompt MESSAGES[LANGUAGE]['invalid_number']
     end
   end
 
-  prompt MESSAGES['en']['operator_prompt']
+  prompt MESSAGES[LANGUAGE]['operator_prompt']
   operator = ''
   loop do
     operator = gets.chomp
     if %w(1 2 3 4).include? operator
       break
     else
-      prompt MESSAGES['en']['validate_operator']
+      prompt MESSAGES[LANGUAGE]['validate_operator']
     end
   end
-  prompt "#{operation_to_message(operator)} #{MESSAGES['en']['calculating']}"
+  prompt "#{operation_to_message(operator)} #{MESSAGES[LANGUAGE]['calculating']}"
   result =  case operator
             when '1'
               number1.to_f + number2.to_f
@@ -91,8 +103,8 @@ loop do
             when '4'
               number1.to_f / number2.to_f
             end
-  prompt "#{MESSAGES['en']['result']} #{result.round(2)}!"
-  prompt MESSAGES['en']['again_prompt']
+  prompt "#{MESSAGES[LANGUAGE]['result']} #{result.round(2)}!"
+  prompt MESSAGES[LANGUAGE]['again_prompt']
   answer = gets.chomp.downcase
   break unless answer == 'y'
 end

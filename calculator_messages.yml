@@ -1,4 +1,10 @@
-en: 
+choose_language: "Choose the language you want to show (Chọn ngôn ngữ bạn muốn hiển thị)\n
+1) vi (Tiếng việt)\n
+2) en (English)
+"
+invalid_language: "Invalid language (Không có ngôn ngữ bạn chọn)"
+en:
+  hi: "Hi"
   adding: "Adding"
   subtracting: "Subtracting"
   multiplying: "Multiplying"
@@ -17,3 +23,23 @@ en:
   2) subtract\n
   3) multiply\n
   4) divide"
+vi:
+  hi: "Chào"
+  adding: "Cộng"
+  subtracting: "Trừ"
+  multiplying: "Nhân"
+  dividing: "Chia"
+  welcome: "Xin chào các bạn đến với Máy tính. Tên bạn là:"
+  empty_name: "Đảm bảo là tên bạn đúng."
+  first_number_prompt: "Số đầu tiên là gì?"
+  second_number_prompt: "Số thứ hai là gì?"
+  invalid_number: "Hmm... có vẻ đây không phải là một số đúng."
+  validate_operator: "Phải chọn 1 2 3 hoặc 4"
+  again_prompt: "Bạn có muốn tính lại không? (bấm phím y để tiếp tục)"
+  result: "Kết quả là"
+  calculating: "hai số..."
+  operator_prompt: "Toán tử nào bạn muốn thực hiện?\n
+  1) cộng\n
+  2) trừ\n
+  3) nhân\n
+  4) chia"
