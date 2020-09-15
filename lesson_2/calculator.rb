@@ -2,10 +2,20 @@ def prompt(message)
   Kernel.puts("=> " + message)
 end
 
-def valid_number?(num)
-  true if Float(num)
+def is_integer?(input)
+  Integer(input)
 rescue ArgumentError
   false
+end
+
+def is_float?(input)
+  Float(input)
+rescue
+  false
+end
+
+def is_valid_number?(input)
+  is_integer?(input) || is_float?(input)
 end
 
 def operation_to_message(message)
@@ -41,7 +51,7 @@ loop do
   loop do
     prompt "What's the first number?"
     number1 = Kernel.gets.chomp
-    if valid_number? number1
+    if is_valid_number? number1
       break
     else
       prompt "Hmm... that doesn't look like a valid number"
@@ -51,7 +61,7 @@ loop do
   loop do
     prompt "What's the second number?"
     number2 = Kernel.gets.chomp
-    if valid_number? number2
+    if is_valid_number? number2
       break
     else
       prompt "Hmm. that doesn't look like a valid number"
@@ -77,11 +87,11 @@ What operation would you like to perform?
   prompt "#{operation_to_message(operator)} the two numbers..."
   result =  case operator
             when '1'
-              number1.to_i + number2.to_i
+              number1.to_f + number2.to_f
             when '2'
-              number1.to_i - number2.to_i
+              number1.to_f - number2.to_f
             when '3'
-              number1.to_i * number2.to_i
+              number1.to_f * number2.to_f
             when '4'
               number1.to_f / number2.to_f
             end
