@@ -1,6 +1,7 @@
+## better solution
+
 def digit_list(number)
-  list = number.to_s.split('')
-  list.map { |char| char.to_i }
+  number.to_s.chars.map(&:to_i)
 end
 
 puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
