@@ -20,7 +20,7 @@ end
 
 def positive_number?(input)
   number?(input) && input.to_f > 0
-endf
+end
 
 loop do
   loan_amount = ''
