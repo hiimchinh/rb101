@@ -18,13 +18,17 @@ def number?(input)
   float?(input) || integer?(input)
 end
 
+def positive_number?(input)
+  number?(input) && input.to_f > 0
+endf
+
 loop do
   loan_amount = ''
   loop do
     prompt "Please input the loan amount:"
     loan_amount = gets.chomp
-    break if number?(loan_amount)
-    prompt 'You have to input a float or an integer.'
+    break if positive_number?(loan_amount)
+    prompt 'You have to input a float or an integer that is positive.'
   end
 
   annual_percentage_rate = ''
@@ -32,16 +36,16 @@ loop do
   loop do
     prompt 'Please input the annual percentage rate (%):'
     annual_percentage_rate = gets.chomp
-    break if number?(annual_percentage_rate)
-    prompt 'You have to input a float or an integer'
+    break if positive_number?(annual_percentage_rate)
+    prompt 'You have to input a float or an integer that is positive'
   end
 
   loan_duration_in_months = ''
   loop do
     prompt 'Please input the loan duration (months):'
     loan_duration_in_months = gets.chomp
-    break if integer?(loan_duration_in_months)
-    prompt 'You have to input an integer'
+    break if integer?(loan_duration_in_months) && loan_duration_in_months.to_i > 0
+    prompt 'You have to input a positive integer'
   end
 
   monthly_interest_rate = annual_percentage_rate.to_f / 12 / 100
