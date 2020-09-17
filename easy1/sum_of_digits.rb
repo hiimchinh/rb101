@@ -1,5 +1,5 @@
 def sum(int)
-  int.digits.reduce(:+)
+  int.to_s.chars.map(&:to_i).reduce(:+)
 end
 
 # test cases
