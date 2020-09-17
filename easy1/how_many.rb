@@ -6,6 +6,7 @@ vehicles = [
 def count_occurrences(objects)
   occurrences = {}
   objects.each do |object|
+    object = object.downcase
     if occurrences.has_key?(object)
       occurrences[object] += 1
     else
