@@ -1,10 +1,5 @@
 def reverse_sentence(string)
-  words = string.split
-  reverse_words = []
-  words.each do |word|
-    reverse_words.prepend(word)
-  end
-  reverse_words.join(' ')
+  string.split.reverse.join(' ')
 end
 
 ### test cases
