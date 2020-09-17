@@ -1,6 +1,5 @@
 def average(array)
-  sum = 0
-  array.each { |num| sum += num }
+  sum = array.reduce(:+)
   sum / array.size
 end
 
