@@ -3,14 +3,16 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def win?(player1, player2)
+  (player1 == 'rock' && player2 == 'scissors') ||
+    (player1 == 'paper' && player2 == 'rock') ||
+    (player1 == 'scissors' && player2 == 'paper')
+end
+
 def display_results(user, computer)
-  if (user == 'rock' && computer == 'scissors') ||
-    (user == 'paper' && computer == 'rock') ||
-    (user == 'scissors' && computer == 'paper')
+  if win?(user, computer)
     prompt "You won!"
-  elsif (computer == 'rock' && user == 'scissors') ||
-    (computer == 'paper' && user == 'rock') ||
-    (computer == 'scissors' && user == 'paper')
+  elsif win?(computer, user)
     prompt "Computer won!"
   else
     prompt "It's a tie!"
