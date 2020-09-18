@@ -1,4 +1,10 @@
-VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+VALID_CHOICES = {
+  'r' => 'rock',
+  'p' => 'paper',
+  'sc' => 'scissors',
+  'l' => 'lizard',
+  'sp' => 'spock'
+}
 RULES = {
   'rock' => ['lizard', 'scissors'],
   'paper' => ['rock', 'spock'],
@@ -26,12 +32,14 @@ end
 loop do
   choice = ''
   loop do
-    prompt "Choose one: #{VALID_CHOICES.join(', ')}"
-    choice = gets.chomp
-    break if VALID_CHOICES.include?(choice)
+    prompt "Choose one: #{VALID_CHOICES.values.join(', ')} or #{VALID_CHOICES.keys.join(', ')}"
+    choice = gets.chomp.downcase
+    choice = VALID_CHOICES[choice] if VALID_CHOICES.has_key?(choice)
+    break if VALID_CHOICES.has_value?(choice)
     prompt "That's not a valid choice."
   end
-  computer_choice = VALID_CHOICES.sample
+  computer_choice = VALID_CHOICES.values.sample
+
   prompt "You choose: #{choice}; Computer choose: #{computer_choice}"
   display_results(choice, computer_choice)
   prompt "Do you want to play again? (y to play again)"
