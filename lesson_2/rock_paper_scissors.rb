@@ -1,12 +1,17 @@
-VALID_CHOICES = ['rock', 'paper', 'scissors']
+VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+RULES = {
+  'rock' => ['lizard', 'scissors'],
+  'paper' => ['rock', 'spock'],
+  'scissors' => ['paper', 'lizard'],
+  'lizard' => ['paper', 'spock'],
+  'spock' => ['scissors', 'rock']
+}
 def prompt(message)
   puts "=> #{message}"
 end
 
 def win?(player1, player2)
-  (player1 == 'rock' && player2 == 'scissors') ||
-    (player1 == 'paper' && player2 == 'rock') ||
-    (player1 == 'scissors' && player2 == 'paper')
+  RULES[player1].include?(player2)
 end
 
 def display_results(user, computer)
