@@ -1,8 +1,8 @@
 print "What is your name? "
 name = gets.chomp
-if /!$/.match(name)
-  name = name.upcase.delete_suffix('!')
-  puts "HELLO #{name}. WHY ARE WE SCREAMING?"
+if name[-1] == '!'
+  name = name.chop!
+  puts "HELLO #{name.upcase}. WHY ARE WE SCREAMING?"
 else
   puts "Hello #{name}."
 end
