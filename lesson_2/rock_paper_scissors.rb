@@ -32,10 +32,11 @@ end
 loop do
   choice = ''
   loop do
-    prompt "Choose one: #{VALID_CHOICES.values.join(', ')} or #{VALID_CHOICES.keys.join(', ')}"
+    prompt "Choose one: #{VALID_CHOICES.values.join(', ')}
+              (or #{VALID_CHOICES.keys.join(', ')} respectively)"
     choice = gets.chomp.downcase
-    choice = VALID_CHOICES[choice] if VALID_CHOICES.has_key?(choice)
-    break if VALID_CHOICES.has_value?(choice)
+    choice = VALID_CHOICES[choice] if VALID_CHOICES.key?(choice)
+    break if VALID_CHOICES.value?(choice)
     prompt "That's not a valid choice."
   end
   computer_choice = VALID_CHOICES.values.sample
