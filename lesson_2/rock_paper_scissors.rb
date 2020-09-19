@@ -32,7 +32,7 @@ def get_choice
   end
   choice
 end
-  
+
 def display_results(user, computer)
   if win?(user, computer)
     prompt "You won!"
@@ -42,12 +42,21 @@ def display_results(user, computer)
     prompt "It's a tie!"
   end
 end
+
 loop do
-  choice = get_choice
-  computer_choice = VALID_CHOICES.values.sample
-  
-  prompt "You choose: #{choice}; Computer choose: #{computer_choice}"
-  display_results(choice, computer_choice)
+  player_score = 0
+  computer_score = 0
+
+  until player_score == 5 || computer_score == 5
+    choice = get_choice
+    computer_choice = VALID_CHOICES.values.sample
+    prompt "You choose: #{choice}; Computer choose: #{computer_choice}"
+    display_results(choice, computer_choice)
+    player_score += 1 if win?(choice, computer_choice)
+    computer_score += 1 if win?(computer_choice, choice)
+  end
+  winner = player_score == 5 ? 'You are' : 'Computer is'
+  prompt "Matches over. #{winner} the grand winner."
   prompt "Do you want to play again? (y to play again)"
   answer = gets.chomp.downcase
   break unless answer == 'y'
