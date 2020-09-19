@@ -20,6 +20,19 @@ def win?(player1, player2)
   RULES[player1].include?(player2)
 end
 
+def get_choice
+  choice = ''
+  loop do
+    prompt "Choose one: #{VALID_CHOICES.values.join(', ')}
+              (or #{VALID_CHOICES.keys.join(', ')} respectively)"
+    choice = gets.chomp.downcase
+    choice = VALID_CHOICES[choice] if VALID_CHOICES.key?(choice)
+    break if VALID_CHOICES.value?(choice)
+    prompt "That's not a valid choice."
+  end
+  choice
+end
+  
 def display_results(user, computer)
   if win?(user, computer)
     prompt "You won!"
@@ -30,17 +43,9 @@ def display_results(user, computer)
   end
 end
 loop do
-  choice = ''
-  loop do
-    prompt "Choose one: #{VALID_CHOICES.values.join(', ')}
-              (or #{VALID_CHOICES.keys.join(', ')} respectively)"
-    choice = gets.chomp.downcase
-    choice = VALID_CHOICES[choice] if VALID_CHOICES.key?(choice)
-    break if VALID_CHOICES.value?(choice)
-    prompt "That's not a valid choice."
-  end
+  choice = get_choice
   computer_choice = VALID_CHOICES.values.sample
-
+  
   prompt "You choose: #{choice}; Computer choose: #{computer_choice}"
   display_results(choice, computer_choice)
   prompt "Do you want to play again? (y to play again)"
