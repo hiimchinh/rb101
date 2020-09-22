@@ -1,14 +1,19 @@
+#this solution is more complex than the previous solution
+
 def leap_year?(year)
-  if year % 400 == 0
-    true
-  elsif year % 100 == 0
-    false
-  else
-    year % 4 == 0
+  is_leap = false
+  if year % 4 == 0
+    is_leap = true
+    if year % 100 == 0
+      is_leap = false
+      if year % 400 == 0
+        is_leap = true
+      end
+    end
   end
+  is_leap
 end
 
-# if divided by 4 and not divided by 100 or divided by 100 and 400 => leap year
 
 # test cases
 puts leap_year?(2016) == true
