@@ -1,30 +1,26 @@
 def century(num)
   century = (num.to_f / 100).ceil
-  ones = century % 10
-  tens = (century / 10) % 10
-  if tens == 1
-    century = "#{century}th"
-  else
-    if ones == 1
-      century = "#{century}st"
-    elsif ones == 2
-      century = "#{century}nd"
-    elsif ones == 3
-      century = "#{century}rd"
-    else
-      century = "#{century}th"
-    end
+  century.to_s + century_suffix(century)
+end
+
+def century_suffix(century)
+  return 'th' if [11, 12, 13].include?(century % 100)
+  last_digit = century % 10
+  case last_digit
+  when 1 then 'st'
+  when 2 then 'nd'
+  when 3 then 'rd'
+  else 'th'
   end
-  century
 end
 
 =begin
   gets century
-  divide century by 100 to get the remain ones and tens
-  if the tens are 1 => th
-  else 
-    if the ones are 1 => st
-    elsif the e
+  if remainder of century to 100 is 11, 12 or 13 => return th
+  case last digit = remainder of century to 10
+  when remainder == 1 then st 
+  when remainder == 2 then nd 
+  when remainder == 3 then rd 
 =end
 
 # test cases
