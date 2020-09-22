@@ -1,16 +1,11 @@
 def leap_year?(year)
-  if (divisible?(year, 4) &&
-      !divisible?(year, 100)) ||
-    (divisible?(year, 100) &&
-      divisible?(year, 400))
+  if year % 400 == 0
     true
-  else
+  elsif year % 100 == 0
     false
+  else
+    year % 4 == 0
   end
-end
-
-def divisible?(divident, divisor)
-  divident % divisor == 0
 end
 
 # if divided by 4 and not divided by 100 or divided by 100 and 400 => leap year
