@@ -1,11 +1,6 @@
 def running_total(arr)
   sum = 0
-  result = []
-  arr.each do |num|
-    sum += num
-    result.push(sum)
-  end
-  result
+  arr.map { |value| sum += value }
 end
 
 #test cases
