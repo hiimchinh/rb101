@@ -26,7 +26,14 @@ def hexadecimal_to_integer(string)
   total
 end
 
-
+def hexadecimal_to_integer_2(string)
+  hexs = string.chars.map { |char| HEXS[char.downcase] }
+  value = 0
+  hexs.each do |hex|
+    value = 16 * value + hex
+  end
+  value
+end
 
 
 # test cases
@@ -35,3 +42,9 @@ puts hexadecimal_to_integer('100') == 256
 puts hexadecimal_to_integer('3E8') == 1000
 puts hexadecimal_to_integer('1000') == 4096
 puts hexadecimal_to_integer('FACE') == 64_206
+
+puts hexadecimal_to_integer_2('4D9f') == 19871
+puts hexadecimal_to_integer_2('100') == 256
+puts hexadecimal_to_integer_2('3E8') == 1000
+puts hexadecimal_to_integer_2('1000') == 4096
+puts hexadecimal_to_integer_2('FACE') == 64_206
