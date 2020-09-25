@@ -1,23 +1,23 @@
 STRINGS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
-def integer_to_string(int)
+def integer_to_string(number)
   string = ''
   loop do
-    int, remainder = int.divmod(10)
+    number, remainder = number.divmod(10)
     string.prepend(STRINGS[remainder])
-    break if int == 0
+    break if number == 0
   end
   string
 end
 
 def signed_integer_to_string(number)
-  if number > 0
-    '+' + integer_to_string(number)
-  elsif number < 0
-    '-' + integer_to_string(number * -1)
-  else
-    '0'
+  string = case number <=> 0
+  when -1 then "-"
+  when +1 then "+"
+  else         ""
   end
+  number = -number if number < 0
+  string + integer_to_string(number)
 end
 
 #test cases
