@@ -1,13 +1,8 @@
 def word_sizes(string)
   words = string.split
-  hash = {}
+  hash = Hash.new(0)
   words.each do |word|
-    word_size = word.size
-    if hash.key?(word_size)
-      hash[word_size] += 1
-    else
-      hash[word_size] = 1
-    end
+    hash[word.size] += 1
   end
   hash
 end
