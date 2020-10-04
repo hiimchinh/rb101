@@ -1,14 +1,10 @@
-ALPHABETS = [
-  'zero', 'one', 'two', 'three', 'four', 
-  'five', 'six', 'seven', 'eight', 'nine',
-  'ten', 'eleven', 'twelve', 'thirteen', 
-  'fourteen', 'fifteen', 'sixteen', 'seventeen',
-  'eightteen', 'nineteen'
-]
+ALPHABETS = %w(zero one two three four five six seven 
+                eight nine ten eleven twelve thirteen fourteen 
+                fifteen sixteen seventeen eighteen nineteen)
 
 def alphabetic_number_sort(array)
-  array.sort do |a, b|
-    ALPHABETS[a] <=> ALPHABETS[b]
+  array.sort_by do |int|
+    ALPHABETS[int]
   end
 end
 
