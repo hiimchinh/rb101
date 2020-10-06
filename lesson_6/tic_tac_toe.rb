@@ -9,6 +9,7 @@ COMPUTER_MARKER = 'O'
 
 def display_board(brd)
   system 'clear'
+  puts "You are X. Computer are 0."
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
   puts "     |     |"
@@ -73,19 +74,26 @@ def detect_winner(brd)
   end
   nil
 end
-
-board = initialize_board
 loop do
+  board = initialize_board
+  loop do
+    display_board(board)
+    player_places_piece!(board)
+    break if someone_won?(board) || board_full?(board)
+    computer_places_pieces!(board)
+    break if someone_won?(board) || board_full?(board)
+  end
   display_board(board)
-  player_places_piece!(board)
-  break if someone_won?(board) || board_full?(board)
-  computer_places_pieces!(board)
-  break if someone_won?(board) || board_full?(board)
-end
-display_board(board)
 
-if someone_won?(board)
-  prompt "#{detect_winner(board)} won!"
-else
-  prompt "It's a tie"
+  if someone_won?(board)
+    prompt "#{detect_winner(board)} won!"
+  else
+    prompt "It's a tie"
+  end
+  prompt "Do you want to play again?(y or n)"
+  answer = gets.chomp
+  break unless answer.downcase.start_with?('y')
 end
+
+prompt("Thank you for playing the game. Goodbye")
+
