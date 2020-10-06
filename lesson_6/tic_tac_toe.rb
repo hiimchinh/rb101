@@ -75,14 +75,17 @@ def detect_winner(brd)
 end
 
 board = initialize_board
-display_board(board)
 loop do
-  player_places_piece!(board)
-  computer_places_pieces!(board)
   display_board(board)
+  player_places_piece!(board)
+  break if someone_won?(board) || board_full?(board)
+  computer_places_pieces!(board)
   break if someone_won?(board) || board_full?(board)
 end
+display_board(board)
 
 if someone_won?(board)
   prompt "#{detect_winner(board)} won!"
+else
+  prompt "It's a tie"
 end
