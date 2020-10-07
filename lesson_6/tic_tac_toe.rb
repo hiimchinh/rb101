@@ -8,9 +8,10 @@ COMPUTER_MARKER = 'O'
 
 # rubocop: disable Metrics/AbcSize
 
-def display_board(brd)
+def display_board(brd, player_won, computer_won)
   system 'clear'
   puts "You are X. Computer are 0."
+  puts "You won: #{player_won} times. Computer won: #{computer_won} times."
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
   puts "     |     |"
@@ -81,25 +82,33 @@ def joinor(arr, delimeter = ', ', last_delimeter = 'or')
 end
 
 def start_game
-  brd = initialize_board
+  player_won = 0
+  computer_won = 0
   loop do
-    display_board(brd)
-    player_places_piece!(brd)
-    break if someone_won?(brd) || board_full?(brd)
-    computer_places_pieces!(brd)
-    break if someone_won?(brd) || board_full?(brd)
+    brd = initialize_board
+    loop do
+      display_board(brd, player_won, computer_won)
+      player_places_piece!(brd)
+      break if someone_won?(brd) || board_full?(brd)
+      computer_places_pieces!(brd)
+      break if someone_won?(brd) || board_full?(brd)
+    end
+    if detect_winner(brd) == 'Player'
+      player_won += 1
+    elsif detect_winner(brd) == 'Computer'
+      computer_won += 1
+    end
+    break if player_won == 5 || computer_won == 5
   end
-  display_board(brd)
-  if someone_won?(brd)
-    prompt "#{detect_winner(brd)} won!"
+  if player_won == 5
+    prompt "You won!"
   else
-    prompt "It's a tie"
+    prompt "Computer won!"
   end
-  detect_winner(brd)
 end
 
 loop do
-  start_game
+  start_game()
   prompt "Do you want to play again?(y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
