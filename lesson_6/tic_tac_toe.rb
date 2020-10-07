@@ -74,15 +74,12 @@ def detect_winner(brd)
   nil
 end
 
-def joinor(arr, delimeter = ', ', last_delimeter = ' or ')
-  return arr.join(' or ') if arr.length == 2
+def joinor(arr, delimeter = ', ', last_delimeter = 'or')
+  return arr.join(" #{last_delimeter} ") if arr.length < 3
+  arr[-1] = "#{last_delimeter} #{arr[-1]}"
+  arr.join(delimeter)
 end
 
-p joinor([1, 2, 3]) 
-puts joinor([1, 2]) == "1 or 2"
-puts joinor([1, 2, 3])                 == "1, 2, or 3"
-puts joinor([1, 2, 3], '; ')           == "1; 2; or 3"
-puts joinor([1, 2, 3], ', ', 'and')    == "1, 2, and 3"
 
 # loop do
 #   board = initialize_board
