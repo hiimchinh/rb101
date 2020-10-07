@@ -44,7 +44,7 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a square (#{empty_squares(brd).join(', ')}):"
+    prompt "Choose a square (#{joinor(empty_squares(brd))}):"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that's not a valid choice."
@@ -81,25 +81,25 @@ def joinor(arr, delimeter = ', ', last_delimeter = 'or')
 end
 
 
-# loop do
-#   board = initialize_board
-#   loop do
-#     display_board(board)
-#     player_places_piece!(board)
-#     break if someone_won?(board) || board_full?(board)
-#     computer_places_pieces!(board)
-#     break if someone_won?(board) || board_full?(board)
-#   end
-#   display_board(board)
+loop do
+  board = initialize_board
+  loop do
+    display_board(board)
+    player_places_piece!(board)
+    break if someone_won?(board) || board_full?(board)
+    computer_places_pieces!(board)
+    break if someone_won?(board) || board_full?(board)
+  end
+  display_board(board)
 
-#   if someone_won?(board)
-#     prompt "#{detect_winner(board)} won!"
-#   else
-#     prompt "It's a tie"
-#   end
-#   prompt "Do you want to play again?(y or n)"
-#   answer = gets.chomp
-#   break unless answer.downcase.start_with?('y')
-# end
+  if someone_won?(board)
+    prompt "#{detect_winner(board)} won!"
+  else
+    prompt "It's a tie"
+  end
+  prompt "Do you want to play again?(y or n)"
+  answer = gets.chomp
+  break unless answer.downcase.start_with?('y')
+end
 
 prompt("Thank you for playing the game. Goodbye")
