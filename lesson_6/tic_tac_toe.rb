@@ -47,19 +47,37 @@ def immediate_threat?(brd)
 end
  
 def detect_threat_key(brd)
-  threat_index = nil
+  threat_key = nil
   WINNING_LINES.each do |line|
     values_in_line = brd.values_at(*line)
     if values_in_line.count(INITIAL_MARKER) == 1 && 
         values_in_line.count(PLAYER_MARKER) == 2
-        threat_index = line[values_in_line.index(INITIAL_MARKER)]
+        threat_key = line[values_in_line.index(INITIAL_MARKER)]
     end
   end
-  threat_index
+  threat_key
+end
+
+def immediate_win?(brd)
+  !!detect_winning_key(brd)
+end
+
+def detect_winning_key(brd)
+  winning_key = nil
+  WINNING_LINES.each do |line|
+    values_in_line = brd.values_at(*line)
+    if values_in_line.count(INITIAL_MARKER) == 1 && 
+        values_in_line.count(COMPUTER_MARKER) == 2
+        winning_key = line[values_in_line.index(INITIAL_MARKER)]
+    end
+  end
+  winning_key
 end
 
 def computer_places_pieces!(brd)
-  if immediate_threat?(brd)
+  if immediate_win?(brd)
+    square = detect_winning_key(brd)
+  elsif immediate_threat?(brd)
     square = detect_threat_key(brd)
   else
     square = empty_squares(brd).sample
