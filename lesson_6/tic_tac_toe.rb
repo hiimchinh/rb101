@@ -42,32 +42,16 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
-def immediate_threat?(brd)
-  !!detect_threat_key(brd)
-end
- 
-def detect_threat_key(brd)
-  threat_key = nil
-  WINNING_LINES.each do |line|
-    values_in_line = brd.values_at(*line)
-    if values_in_line.count(INITIAL_MARKER) == 1 && 
-        values_in_line.count(PLAYER_MARKER) == 2
-        threat_key = line[values_in_line.index(INITIAL_MARKER)]
-    end
-  end
-  threat_key
+def immediate_win?(brd, marker)
+  !!detect_winning_key(brd, marker)
 end
 
-def immediate_win?(brd)
-  !!detect_winning_key(brd)
-end
-
-def detect_winning_key(brd)
+def detect_winning_key(brd, marker)
   winning_key = nil
   WINNING_LINES.each do |line|
     values_in_line = brd.values_at(*line)
     if values_in_line.count(INITIAL_MARKER) == 1 && 
-        values_in_line.count(COMPUTER_MARKER) == 2
+        values_in_line.count(marker) == 2
         winning_key = line[values_in_line.index(INITIAL_MARKER)]
     end
   end
@@ -75,10 +59,10 @@ def detect_winning_key(brd)
 end
 
 def computer_places_pieces!(brd)
-  if immediate_win?(brd)
-    square = detect_winning_key(brd)
-  elsif immediate_threat?(brd)
-    square = detect_threat_key(brd)
+  if immediate_win?(brd, COMPUTER_MARKER)
+    square = detect_winning_key(brd, COMPUTER_MARKER)
+  elsif immediate_win?(brd, PLAYER_MARKER)
+    square = detect_winning_key(brd, PLAYER_MARKER)
   else
     square = empty_squares(brd).sample
   end
