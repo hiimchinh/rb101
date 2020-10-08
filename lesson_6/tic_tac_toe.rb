@@ -42,8 +42,28 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
+def immediate_threat?(brd)
+  !!detect_threat_key(brd)
+end
+ 
+def detect_threat_key(brd)
+  threat_index = nil
+  WINNING_LINES.each do |line|
+    values_in_line = brd.values_at(*line)
+    if values_in_line.count(INITIAL_MARKER) == 1 && 
+        values_in_line.count(PLAYER_MARKER) == 2
+        threat_index = line[values_in_line.index(INITIAL_MARKER)]
+    end
+  end
+  threat_index
+end
+
 def computer_places_pieces!(brd)
-  square = empty_squares(brd).sample
+  if immediate_threat?(brd)
+    square = detect_threat_key(brd)
+  else
+    square = empty_squares(brd).sample
+  end
   brd[square] = COMPUTER_MARKER
 end
 
