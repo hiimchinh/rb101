@@ -1,7 +1,8 @@
 def reverse(array)
-	result_arr = []
-  array.each { |element| result_arr.unshift(element) }
-  result_arr
+  # inject elements to the beginning of the new array
+	array.inject([]) do |memo, object|
+     memo.unshift(object)
+  end
 end
 
 # test cases
