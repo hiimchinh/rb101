@@ -5,6 +5,8 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
                 [[1, 5, 9], [3, 5, 7]]
 
 FIRST_PLAYER = 'choose'
+PLAYER = 'player'
+COMPUTER = 'computer'
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -60,7 +62,7 @@ def detect_winning_key(brd, marker)
   winning_key
 end
 
-def computer_places_pieces!(brd)
+def computer_places_piece!(brd)
   if immediate_win?(brd, COMPUTER_MARKER)
     square = detect_winning_key(brd, COMPUTER_MARKER)
   elsif immediate_win?(brd, PLAYER_MARKER)
@@ -117,16 +119,32 @@ def display_winner(player_score)
   end
 end
 
-first_player = nil
+def place_piece!(brd, current_player)
+  if current_player == PLAYER
+    player_places_piece!(brd)
+  else
+    computer_places_piece!(brd)
+  end
+end
+
+def alternate_player(current_player)
+  if current_player == PLAYER
+    COMPUTER
+  else
+    PLAYER
+  end
+end
+
+current_player = nil
 if FIRST_PLAYER == 'choose'
   loop do
     prompt("Choose who play first? (player, computer)")
-    first_player = gets.chomp.downcase
-    break if %w(player computer).include?(first_player)
+    current_player = gets.chomp.downcase
+    break if %w(player computer).include?(current_player)
     prompt("Invalid first player. Try again.")
   end
 else
-  first_player = FIRST_PLAYER
+  current_player = FIRST_PLAYER
 end
 loop do
   player_score = 0
@@ -135,18 +153,9 @@ loop do
     brd = initialize_board
     loop do
       display_board(brd, player_score, computer_score)
-      if first_player == 'player'
-        player_places_piece!(brd)
-        break if someone_won?(brd) || board_full?(brd)
-        computer_places_pieces!(brd)
-        break if someone_won?(brd) || board_full?(brd)
-      else
-        computer_places_pieces!(brd)
-        break if someone_won?(brd) || board_full?(brd)
-        display_board(brd, player_score, computer_score)
-        player_places_piece!(brd)
-        break if someone_won?(brd) || board_full?(brd)
-      end
+      place_piece!(brd, current_player)
+      current_player = alternate_player(current_player)
+      break if someone_won?(brd) || board_full?(brd)
     end
     if detect_winner(brd) == 'Player'
       player_score += 1
