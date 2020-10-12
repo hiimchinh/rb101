@@ -115,7 +115,7 @@ def display_winner(player_score)
   end
 end
 
-def start_game
+loop do
   player_score = 0
   computer_score = 0
   loop do
@@ -135,10 +135,6 @@ def start_game
     break if player_score == 5 || computer_score == 5
   end
   display_winner(player_score)
-end
-
-loop do
-  start_game
   prompt "Do you want to play again?(y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
