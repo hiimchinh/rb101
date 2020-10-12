@@ -135,22 +135,23 @@ def alternate_player(current_player)
   end
 end
 
-current_player = nil
+first_player = nil
 if FIRST_PLAYER == 'choose'
   loop do
     prompt("Choose who play first? (player, computer)")
-    current_player = gets.chomp.downcase
-    break if %w(player computer).include?(current_player)
+    first_player = gets.chomp.downcase
+    break if %w(player computer).include?(first_player)
     prompt("Invalid first player. Try again.")
   end
 else
-  current_player = FIRST_PLAYER
+  first_player = FIRST_PLAYER
 end
 loop do
   player_score = 0
   computer_score = 0
   loop do
     brd = initialize_board
+    current_player = first_player
     loop do
       display_board(brd, player_score, computer_score)
       place_piece!(brd, current_player)
