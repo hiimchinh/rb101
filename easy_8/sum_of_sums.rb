@@ -1,13 +1,9 @@
 def sum_of_sums(array)
-  index = 0
-  length = array.length
-  result = 0
-  while index < array.length
-    result += array[index] * length
-    index += 1
-    length -= 1
+  sum_total = 0
+  1.upto(array.length) do |array_position|
+    sum_total += array.slice(0, array_position).reduce(:+)
   end
-  result
+  sum_total
 end
 
 # test cases
