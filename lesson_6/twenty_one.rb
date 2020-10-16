@@ -97,9 +97,10 @@ loop do
     prompt "You have: #{player_cards.join(' and ')}.
     Total is: (#{total(player_cards)})"
     answer = prompt_player
-    break if answer == 's'
-    player_cards << deal_a_card(deck)
-    break if busted?(player_cards)
+    if answer == 'h'
+      player_cards << deal_a_card(deck)
+    end
+    break if answer == 's' || busted?(player_cards)
   end
 
   if busted?(player_cards)
