@@ -80,8 +80,19 @@ def display_winner(result, player_cards, dealer_cards)
   end
 end
 
-# start the game
+def play_again?
+  answer = nil
+  loop do
+    prompt "Do you want to play again? (y)es or (n)o?"
+    answer = gets.chomp.downcase
+    break if ['y', 'n'].include?(answer)
+    prompt "You have to choose 'y' or 'n'. Try again."
+  end
+  answer == 'y'
+end
 
+# start the game
+prompt "Welcome to the twenty one game!!!"
 deck = init_deck
 player_cards = []
 dealer_cards = []
@@ -89,7 +100,6 @@ dealer_cards = []
   player_cards << deal_a_card(deck)
   dealer_cards << deal_a_card(deck)
 end
-
 
 loop do
   loop do
@@ -104,8 +114,8 @@ loop do
   end
 
   if busted?(player_cards)
-    prompt "You are busted!"
-    break
+    prompt "Dealer win. You are busted!"
+    play_again? ? next : break
   end
 
   loop do
@@ -114,11 +124,12 @@ loop do
   end
 
   if busted?(dealer_cards)
-    prompt "You win. Dealer has busted!"
-    break
+    prompt "You win. Dealer is busted!"
+    play_again? ? next : break
   end
 
   result = who_win?(player_cards, dealer_cards)
   display_winner(result, player_cards, dealer_cards)
-  break
+  break unless play_again?
 end
+prompt "Thank you for playing twenty one!"
