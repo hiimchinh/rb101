@@ -24,20 +24,35 @@ def total_all_cards(cards)
   sum
 end
 
-values = %w(1 2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
+VALUES = %w(1 2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
 SUITS = [:diamonds, :hearts, :clubs, :spades]
-avaiable_cards = {}
-player_cards = []
-dealer_cards = []
-SUITS.each do |suit|
-  avaiable_cards[suit] = values
+
+def init_deck
+  deck = {}
+  SUITS.each do |suit|
+    deck[suit] = VALUES
+  end
+  deck
 end
 
-avaiable_suit_cards = avaiable_cards[SUITS.sample]
-player_cards << avaiable_suit_cards.delete(avaiable_suit_cards.sample)
-player_cards << avaiable_suit_cards.delete(avaiable_suit_cards.sample)
-dealer_cards << avaiable_suit_cards.delete(avaiable_suit_cards.sample)
-dealer_cards << avaiable_suit_cards.delete(avaiable_suit_cards.sample)
+def get_random_suit(deck)
+  deck[SUITS.sample]
+end
+
+def pick_a_random_card(cards)
+  cards.delete(cards.sample)
+end
+
+def deal_a_card(deck)
+  avaiable_cards = get_random_suit(deck)
+  pick_a_random_card(avaiable_cards)
+end
+
+deck = init_deck
+player_cards = []
+dealer_cards = []
+2.times { |_| player_cards << deal_a_card(deck) }
+2.times { |_| dealer_cards << deal_a_card(deck) }
 
 puts "Dealer has #{dealer_cards[0]} and unknown card"
 puts "You have: #{player_cards.join(' and ')}"
