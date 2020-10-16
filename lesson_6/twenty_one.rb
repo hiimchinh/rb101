@@ -43,10 +43,10 @@ end
 def prompt_player
   answer = nil
   loop do
-    puts "Hit or stay?"
+    puts "(h)it or (s)tay?"
     answer = gets.chomp.downcase
-    break if ['hit', 'stay'].include?(answer)
-    puts "Invalid answer. Try again."
+    break if ['h', 's'].include?(answer)
+    puts "Invalid answer. Only allow 'h' or 's'."
   end
   answer
 end
@@ -93,7 +93,7 @@ loop do
     puts "You have: #{player_cards.join(' and ')}.
     Total is: (#{total(player_cards)})"
     answer = prompt_player
-    break if answer == 'stay'
+    break if answer == 's'
     player_cards << deal_a_card(deck)
     break if busted?(player_cards)
   end
