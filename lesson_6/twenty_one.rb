@@ -1,8 +1,8 @@
 def busted?(cards)
-  total_all_cards(cards) > 21
+  total(cards) > 21
 end
 
-def total_all_cards(cards)
+def total(cards)
   sum = 0
   number_of_aces = cards.count('Ace')
   cards_without_aces = cards.select { |card| card != 'Ace' }
@@ -52,8 +52,8 @@ def prompt_player
 end
 
 def who_win?(player_cards, dealer_cards)
-  player_sum = total_all_cards(player_cards)
-  dealer_sum = total_all_cards(dealer_cards)
+  player_sum = total(player_cards)
+  dealer_sum = total(dealer_cards)
   if player_sum > dealer_sum
     'player'
   elsif player_sum < dealer_sum
@@ -64,8 +64,8 @@ def who_win?(player_cards, dealer_cards)
 end
 
 def display_winner(result, player_cards, dealer_cards)
-  player_sum = total_all_cards(player_cards)
-  dealer_sum = total_all_cards(dealer_cards)
+  player_sum = total(player_cards)
+  dealer_sum = total(dealer_cards)
   case result
   when 'player'
     puts "Player win! Player: #{player_sum}, dealer: #{dealer_sum} "
@@ -91,7 +91,7 @@ loop do
   loop do
     puts "Dealer has #{dealer_cards[0]} and unknown card"
     puts "You have: #{player_cards.join(' and ')}.
-    Total is: (#{total_all_cards(player_cards)})"
+    Total is: (#{total(player_cards)})"
     answer = prompt_player
     break if answer == 'stay'
     player_cards << deal_a_card(deck)
@@ -105,7 +105,7 @@ loop do
 
   loop do
     dealer_cards << deal_a_card(deck)
-    break if busted?(dealer_cards) || total_all_cards(dealer_cards) >= 17
+    break if busted?(dealer_cards) || total(dealer_cards) >= 17
   end
 
   if busted?(dealer_cards)
