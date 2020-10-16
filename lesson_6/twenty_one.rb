@@ -2,46 +2,15 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-def busted?(cards)
-  total(cards) > 21
-end
-
-def total(cards)
-  sum = 0
-  number_of_aces = cards.count('Ace')
-  cards_without_aces = cards.select { |card| card != 'Ace' }
-  cards_without_aces.each do |card|
-    sum += %w(1 2 3 4 5 6 7 8 9 10).include?(card) ? card.to_i : 10
-  end
-  return sum if sum > 21
-  number_of_aces.times do |_|
-    sum += sum > 10 ? 1 : 10
-  end
-  sum
-end
-
-VALUES = %w(1 2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
-SUITS = [:diamonds, :hearts, :clubs, :spades]
+SUITS = ['H', 'D', 'S', 'C']
+VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
 def init_deck
-  deck = {}
-  SUITS.each do |suit|
-    deck[suit] = VALUES
-  end
-  deck
+  SUITS.product(VALUES).shuffle
 end
 
-def get_random_suit(deck)
-  deck[SUITS.sample]
-end
-
-def pick_a_random_card(cards)
-  cards.delete(cards.sample)
-end
-
-def deal_a_card(deck)
-  avaiable_cards = get_random_suit(deck)
-  pick_a_random_card(avaiable_cards)
+def get_values(cards)
+  cards.map { |card| card[1]  }
 end
 
 def prompt_player
@@ -53,31 +22,6 @@ def prompt_player
     puts "Invalid answer. Only allow 'h' or 's'."
   end
   answer
-end
-
-def who_win?(player_cards, dealer_cards)
-  player_sum = total(player_cards)
-  dealer_sum = total(dealer_cards)
-  if player_sum > dealer_sum
-    'player'
-  elsif player_sum < dealer_sum
-    'dealer'
-  else
-    'tie'
-  end
-end
-
-def display_winner(result, player_cards, dealer_cards)
-  player_sum = total(player_cards)
-  dealer_sum = total(dealer_cards)
-  case result
-  when 'player'
-    puts "Player win! Player: #{player_sum}, dealer: #{dealer_sum} "
-  when 'dealer'
-    puts "Dealer win! Player: #{player_sum}, dealer: #{dealer_sum} "
-  else
-    puts "It's a tie Player: #{player_sum}, dealer: #{dealer_sum} "
-  end
 end
 
 def play_again?
@@ -97,39 +41,11 @@ deck = init_deck
 player_cards = []
 dealer_cards = []
 2.times do
-  player_cards << deal_a_card(deck)
-  dealer_cards << deal_a_card(deck)
+  player_cards << deck.pop
+  dealer_cards << deck.pop
 end
+player_cards_values = get_values(player_cards)
+dealer_cards_values = get_values(dealer_cards)
+prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
+prompt "You have: #{player_cards_values.join(' and ')}."
 
-loop do
-  loop do
-    prompt "Dealer has #{dealer_cards[0]} and unknown card"
-    prompt "You have: #{player_cards.join(' and ')}.
-    Total is: (#{total(player_cards)})"
-    answer = prompt_player
-    if answer == 'h'
-      player_cards << deal_a_card(deck)
-    end
-    break if answer == 's' || busted?(player_cards)
-  end
-
-  if busted?(player_cards)
-    prompt "Dealer win. You are busted!"
-    play_again? ? next : break
-  end
-
-  loop do
-    dealer_cards << deal_a_card(deck)
-    break if busted?(dealer_cards) || total(dealer_cards) >= 17
-  end
-
-  if busted?(dealer_cards)
-    prompt "You win. Dealer is busted!"
-    play_again? ? next : break
-  end
-
-  result = who_win?(player_cards, dealer_cards)
-  display_winner(result, player_cards, dealer_cards)
-  break unless play_again?
-end
-prompt "Thank you for playing twenty one!"
