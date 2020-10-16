@@ -81,8 +81,11 @@ end
 deck = init_deck
 player_cards = []
 dealer_cards = []
-2.times { |_| player_cards << deal_a_card(deck) }
-2.times { |_| dealer_cards << deal_a_card(deck) }
+2.times do
+  player_cards << deal_a_card(deck)
+  dealer_cards << deal_a_card(deck)
+end
+
 
 loop do
   loop do
