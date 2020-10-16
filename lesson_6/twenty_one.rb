@@ -1,3 +1,7 @@
+def prompt(msg)
+  puts "=> #{msg}"
+end
+
 def busted?(cards)
   total(cards) > 21
 end
@@ -89,8 +93,8 @@ end
 
 loop do
   loop do
-    puts "Dealer has #{dealer_cards[0]} and unknown card"
-    puts "You have: #{player_cards.join(' and ')}.
+    prompt "Dealer has #{dealer_cards[0]} and unknown card"
+    prompt "You have: #{player_cards.join(' and ')}.
     Total is: (#{total(player_cards)})"
     answer = prompt_player
     break if answer == 's'
@@ -99,7 +103,7 @@ loop do
   end
 
   if busted?(player_cards)
-    puts "You are busted!"
+    prompt "You are busted!"
     break
   end
 
@@ -109,7 +113,7 @@ loop do
   end
 
   if busted?(dealer_cards)
-    puts "You win. Dealer has busted!"
+    prompt "You win. Dealer has busted!"
     break
   end
 
