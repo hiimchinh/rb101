@@ -7,19 +7,11 @@ def total_all_cards(cards)
   number_of_aces = cards.count('Ace')
   cards_without_aces = cards.select { |card| card != 'Ace' }
   cards_without_aces.each do |card|
-    if %w(1 2 3 4 5 6 7 8 9 10).include?(card)
-      sum += card.to_i
-    else
-      sum += 10
-    end
+    sum += %w(1 2 3 4 5 6 7 8 9 10).include?(card) ? card.to_i : 10
   end
   return sum if sum > 21
   number_of_aces.times do |_|
-    if sum + 11 > 21
-      sum += 1
-    else
-      sum += 11
-    end
+    sum += sum > 10 ? 1 : 10
   end
   sum
 end
@@ -95,13 +87,14 @@ dealer_cards = []
 loop do
   loop do
     puts "Dealer has #{dealer_cards[0]} and unknown card"
-    puts "You have: #{player_cards.join(' and ')}. Total is: (#{total_all_cards(player_cards)})"
+    puts "You have: #{player_cards.join(' and ')}.
+    Total is: (#{total_all_cards(player_cards)})"
     answer = prompt_player
     break if answer == 'stay'
     player_cards << deal_a_card(deck)
     break if busted?(player_cards)
   end
-  
+
   if busted?(player_cards)
     puts "You are busted!"
     break
@@ -116,9 +109,8 @@ loop do
     puts "You win. Dealer has busted!"
     break
   end
-  
+
   result = who_win?(player_cards, dealer_cards)
   display_winner(result, player_cards, dealer_cards)
   break
 end
-
