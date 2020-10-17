@@ -1,3 +1,5 @@
+require 'pry'
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -35,6 +37,26 @@ def play_again?
   answer == 'y'
 end
 
+def total(cards)
+  sum = 0
+  cards_values = get_values(cards)
+  cards_values.each do |card|
+    sum += if card == 'A'
+      11
+    else
+      card.to_i == 0 ? 10 : card.to_i
+    end
+  end
+  number_of_aces = cards_values.select{|card| card == 'A'}.length.times do |card|
+    sum -= 10 if sum > 21
+  end
+  sum
+end
+
+def busted?(cards)
+  total(cards) > 21
+end
+
 # start the game
 prompt "Welcome to the twenty one game!!!"
 deck = init_deck
@@ -46,10 +68,11 @@ dealer_cards = []
 end
 
 loop do
-player_cards_values = get_values(player_cards)
-dealer_cards_values = get_values(dealer_cards)
-prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
-prompt "You have: #{player_cards_values.join(' and ')}."
+  player_cards_values = get_values(player_cards)
+  dealer_cards_values = get_values(dealer_cards)
+  prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
+  prompt "Your total card is: #{total(player_cards)}"
+  prompt "You have: #{player_cards_values.join(' and ')}."
   answer = prompt_player
   if answer == 'h'
     player_cards << deck.pop
