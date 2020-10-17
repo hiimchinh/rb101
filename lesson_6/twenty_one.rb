@@ -44,8 +44,24 @@ dealer_cards = []
   player_cards << deck.pop
   dealer_cards << deck.pop
 end
+
+loop do
 player_cards_values = get_values(player_cards)
 dealer_cards_values = get_values(dealer_cards)
 prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
 prompt "You have: #{player_cards_values.join(' and ')}."
+  answer = prompt_player
+  if answer == 'h'
+    player_cards << deck.pop
+  end
+  break if answer == 's' || busted?(player_cards)
+end
 
+if busted?(player_cards)
+  prompt "You lose."
+  p player_cards
+  # play_again?
+else
+  prompt "You choose to stay"
+  prompt "Dealer turn"
+end
