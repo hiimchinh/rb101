@@ -59,32 +59,46 @@ end
 
 # start the game
 prompt "Welcome to the twenty one game!!!"
-deck = init_deck
-player_cards = []
-dealer_cards = []
-2.times do
-  player_cards << deck.pop
-  dealer_cards << deck.pop
-end
-
 loop do
-  player_cards_values = get_values(player_cards)
-  dealer_cards_values = get_values(dealer_cards)
-  prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
-  prompt "Your total card is: #{total(player_cards)}"
-  prompt "You have: #{player_cards_values.join(' and ')}."
-  answer = prompt_player
-  if answer == 'h'
+  deck = init_deck
+  player_cards = []
+  dealer_cards = []
+  2.times do
     player_cards << deck.pop
+    dealer_cards << deck.pop
   end
-  break if answer == 's' || busted?(player_cards)
+
+  loop do
+    player_cards_values = get_values(player_cards)
+    dealer_cards_values = get_values(dealer_cards)
+    prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
+    prompt "Your total card is: #{total(player_cards)}"
+    prompt "You have: #{player_cards_values.join(' and ')}."
+    answer = prompt_player
+    if answer == 'h'
+      player_cards << deck.pop
+    end
+    break if answer == 's' || busted?(player_cards)
+  end
+
+  if busted?(player_cards)
+    prompt "You lose."
+    break
+  else
+    prompt "You choose to stay"
+    prompt "Dealer turn"
+  end
+  loop do
+    dealer_cards << deck.pop
+    break if total(dealer_cards) >= 17 || busted?(dealer_cards)
+  end
+
+  if busted?(dealer_cards)
+    prompt "You win. Dealer has busted"
+    break
+  else
+    break
+  end
 end
 
-if busted?(player_cards)
-  prompt "You lose."
-  p player_cards
-  # play_again?
-else
-  prompt "You choose to stay"
-  prompt "Dealer turn"
-end
+prompt "Thank you for playing the game!"
