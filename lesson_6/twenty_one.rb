@@ -12,7 +12,7 @@ def init_deck
 end
 
 def get_values(cards)
-  cards.map { |card| card[1]  }
+  cards.map { |card| card[1] }
 end
 
 def prompt_player
@@ -41,13 +41,13 @@ def total(cards)
   sum = 0
   cards_values = get_values(cards)
   cards_values.each do |card|
-    sum += if card == 'A'
-      11
-    else
-      card.to_i == 0 ? 10 : card.to_i
-    end
+    sum += (if card == 'A'
+              11
+            else
+              card.to_i == 0 ? 10 : card.to_i
+            end)
   end
-  number_of_aces = cards_values.select{|card| card == 'A'}.length.times do |card|
+  cards_values.select { |card| card == 'A' }.length.times do
     sum -= 10 if sum > 21
   end
   sum
