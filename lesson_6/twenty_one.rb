@@ -57,6 +57,16 @@ def busted?(cards)
   total(cards) > 21
 end
 
+def display_winner(total_player_cards, total_dealer_cards)
+  if total_player_cards > total_dealer_cards
+    prompt "The player wins!"
+  elsif total_dealer_cards > total_player_cards
+    prompt "The dealer wins!"
+  else
+    prompt "It's a tie"
+  end
+end
+
 # start the game
 prompt "Welcome to the twenty one game!!!"
 loop do
@@ -67,13 +77,12 @@ loop do
     player_cards << deck.pop
     dealer_cards << deck.pop
   end
-
   loop do
     player_cards_values = get_values(player_cards)
     dealer_cards_values = get_values(dealer_cards)
     prompt "Dealer has #{dealer_cards_values[0]} and an unknown card"
-    prompt "Your total card is: #{total(player_cards)}"
     prompt "You have: #{player_cards_values.join(' and ')}."
+    prompt "Player total card is: #{total(player_cards)}"
     answer = prompt_player
     if answer == 'h'
       player_cards << deck.pop
@@ -82,8 +91,9 @@ loop do
   end
 
   if busted?(player_cards)
-    prompt "You lose."
-    break
+    prompt "Player total is: #{total(player_cards)} "
+    prompt "Dealer win. You are busted"
+    play_again? ? next : break
   else
     prompt "You choose to stay"
     prompt "Dealer turn"
@@ -94,10 +104,16 @@ loop do
   end
 
   if busted?(dealer_cards)
+    prompt "Dealer total is: #{total(dealer_cards)} "
     prompt "You win. Dealer has busted"
-    break
+    play_again? ? next : break
   else
-    break
+    total_player_cards = total(player_cards)
+    total_dealer_cards = total(dealer_cards)
+    prompt "Player total is: #{total_player_cards} "
+    prompt "Dealer total is: #{total_dealer_cards} "
+    display_winner(total_player_cards, total_dealer_cards)
+    break unless play_again?
   end
 end
 
