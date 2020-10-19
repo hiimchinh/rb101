@@ -1,15 +1,11 @@
 def get_grade(score1, score2, score3)
   average_grade = (score1 + score2 + score3) / 3
-  if average_grade <= 100 && average_grade >= 90
-    'A'
-  elsif average_grade < 90 && average_grade >= 80
-    'B'
-  elsif average_grade < 80 && average_grade >= 70
-    'C'
-  elsif average_grade < 70 && average_grade >= 60
-    'D'
-  else
-    'F'    
+  case average_grade
+  when 90..100 then 'A'
+  when 80..89 then  'B'
+  when 70..79 then  'C'
+  when 60..69 then  'D'
+  else              'F'
   end
 end
 
