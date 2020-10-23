@@ -1,17 +1,19 @@
 def light(n)
-  bulbs = {}
+  lights = {}
   1.upto(n) do |index|
-    bulbs[index] = false
+    lights[index] = false
   end
   1.upto(n) do |i|
     index = i
     while index < n
-      bulbs[index] = !bulbs[index]
+      lights[index] = !lights[index]
       index += i
     end
   end
-  bulbs.select { |k, v| v  }.keys
+  lights.select { |k, v| v  }.keys
 end
+
+
 
 p light(5)
 p light(10)
