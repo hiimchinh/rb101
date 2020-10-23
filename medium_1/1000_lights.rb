@@ -7,7 +7,7 @@ def light(n)
       index += i
     end
   end
-  lights.select { |k, v| v  }.keys
+  on_lights(lights)
 end
 
 def init_lights(number_of_lights)
@@ -16,6 +16,10 @@ def init_lights(number_of_lights)
     lights[index] = false
   end
   lights
+end
+
+def on_lights(lights)
+  lights.select { |index, state| state  }.keys
 end
 
 p light(5)
