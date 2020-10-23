@@ -1,11 +1,7 @@
 def light(n)
   lights = init_lights(n)
-  1.upto(n) do |i|
-    index = i
-    while index < n
-      lights[index] = !lights[index]
-      index += i
-    end
+  1.upto(n) do |round|
+    toggle_on_round(round, lights)
   end
   on_lights(lights)
 end
@@ -16,6 +12,14 @@ def init_lights(number_of_lights)
     lights[index] = false
   end
   lights
+end
+
+def toggle_on_round(round, lights)
+  index_to_toggle = round
+  while index_to_toggle < lights.size
+    lights[index_to_toggle] = !lights[index_to_toggle]
+    index_to_toggle += round
+  end
 end
 
 def on_lights(lights)
