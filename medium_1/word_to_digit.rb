@@ -9,7 +9,7 @@ end
 def replace_word_to_number(array_of_words)
   array_of_words.map do |word|
     NUMBERS.each_with_index do |number, index|
-      word.gsub!(number, index.to_s)
+      word.gsub!(/#{number}/i, index.to_s)
     end
     word
   end
@@ -23,3 +23,4 @@ end
 #
 # test case
 puts word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+puts word_to_digit('Please call me at five five Five ONE two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
