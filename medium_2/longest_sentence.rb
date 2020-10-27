@@ -1,10 +1,9 @@
 def longest_sentence(file)
   sentences = file.split(/(\.|\?|!)/)
-  sentences.select! { |sentence| !['.', '?', '!'].include?(sentence) }
   longest_sentence = ''
-  sentences.each do |sentence|
+  sentences.each_with_index do |sentence, index|
     sentence.gsub!(/\n/, ' ')
-    longest_sentence = sentence if sentence.size > longest_sentence.size
+    longest_sentence = sentence + sentences[index + 1] if sentence.size > longest_sentence.size
   end
   number_of_words = longest_sentence.split.length
   puts "#{longest_sentence.strip}"
@@ -44,3 +43,4 @@ resolve that these dead shall not have died in vain
 of freedom -- and that government of the people, by
 the people, for the people, shall not perish from the
 earth.))
+longest_sentence(file.read)
