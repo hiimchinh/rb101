@@ -1,5 +1,6 @@
 
 def featured(num)
+  return 'There is no possible number that fulfills those requirements' if num >= 9_876_543_210
   multiplyer = num / 7
   loop do
     multiplyer += 1
